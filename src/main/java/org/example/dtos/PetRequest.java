@@ -4,11 +4,16 @@ package org.example.dtos;
 import jakarta.validation.constraints.NotNull;
 
 public record PetRequest(
-        @NotNull
+        @NotNull (message = "The name cannot be null.")
         String name,
+
+        @NotNull (message = "The specie cannot be null")
         String specie,
-        String race,
+
+        String breed,
+
         int age,
+
         int guardianId
 ) {
 }

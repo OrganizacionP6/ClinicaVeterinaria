@@ -1,7 +1,10 @@
 package org.example.controllers;
 
+import org.example.entities.Guardian;
 import org.example.entities.Pet;
+import org.example.repositories.GuardianRepository;
 import org.example.repositories.PetRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -21,10 +24,51 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class PetControllerTest {
     @Autowired
     private PetRepository petRepository;
+    private GuardianRepository guardianRepository;
 
     @Autowired
     MockMvc mockMvc;
+
 /*
+    @Test
+    void givenAValidPet_whenPostRequestIsMade_thenReturnSuccess() throws Exception {
+        Guardian guardian = new Guardian("Alice Johnson", "alice.johnson@email.com", "987654321", "123 Meadow Lane");
+        guardianRepository.save(guardian);
+
+        String request = """
+                
+                {
+                  "name": "Buddy",
+                  "specie": "dog",
+                  "breed": "Labrador Retriever",
+                  "age": 4,
+                  "guardianId": 1
+                }
+                """;
+        String response = """
+                {
+                    "id": 1,
+                    "name": "Buddy",
+                    "specie": "dog",
+                    "breed": "Labrador Retriever",
+                    "age": 4,
+                    "guardian": {
+                        "id": 1,
+                        "name": "Alice Johnson",
+                        "email": "alice.johnson@email.com",
+                        "phone": "987654321",
+                        "address": "123 Meadow Lane"
+                    }
+                }
+                """;
+
+        mockMvc.perform(post("/pets")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request))
+                .andExpect(status().isCreated())
+                .andExpect(content().json(response));
+    }
+
     @Test
     void givenValidUser_whenSaving_thenReturnSuccess() throws Exception {
 

@@ -151,11 +151,10 @@ class GuardianControllerTest {
         String jsonrequest =
                 """
                                  {
-                                   "id": 1,
-                                   "name": "Alice Johnson",
-                                   "email": "alice.johnson@email.com",
-                                   "phone": "123456789",
-                                   "address": "123 Meadow Lane"
+                                 "name": "Alice Johnson",
+                                 "email": "alice.johnson@email.com",
+                                 "phone": "123456789",
+                                 "address": "123 Meadow Lane"
                                  }
                      """;
 

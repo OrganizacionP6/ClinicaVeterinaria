@@ -38,7 +38,7 @@ public class Guardian {
     private String address;
 
 
-    @OneToMany(mappedBy = "guardianId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "guardian", cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value = "guardian")
     private List<Pet> pets;
 
@@ -49,5 +49,6 @@ public class Guardian {
         this.phone = phone;
         this.address = address;
     }
+
 
 }

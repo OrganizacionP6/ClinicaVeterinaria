@@ -1,5 +1,6 @@
 package org.example.controllers;
 
+import org.example.dtos.PetRequest;
 import org.example.entities.Pet;
 import org.example.repositories.PetRepository;
 import org.example.services.PetService;
@@ -13,19 +14,20 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/pets")
 public class PetController {
-    /*   private final PetService petService;
+    private final PetService petService;
 
-       public PetController(PetService petService) {
-           this.petService = petService;
-       }
-
-        @PostMapping
-    public ResponseEntity<Pet> createPet(@RequestBody Pet pet){
-        Pet pet = petService.save(pet);
-        return new ResponseEntity<>(savedPet, HttpStatus.CREATED);
-
+    public PetController(PetService petService) {
+        this.petService = petService;
     }
-   */
+
+    @PostMapping
+    public ResponseEntity<Pet> createPet(@RequestBody PetRequest petRequest) {
+        Pet pet = petService.createPet(petRequest);
+        return new ResponseEntity<>(pet, HttpStatus.CREATED);
+    }
+    
+    /*
+
     private final PetRepository petRepository;
 
     public PetController(PetService petService, PetRepository petRepository) {
@@ -67,10 +69,12 @@ public class PetController {
         Pet petToUpdate = optionalPet.get();
         petToUpdate.setName(petRequest.getName());
         petToUpdate.setSpecie(petRequest.getSpecie());
-        petToUpdate.setRace(petRequest.getRace());
+        petToUpdate.setBreed(petRequest.getBreed());
         petToUpdate.setAge(petRequest.getAge());
         petRepository.save(petToUpdate);
 
         return new ResponseEntity<>(petToUpdate, HttpStatus.OK);
     }
+
+     */
 }
