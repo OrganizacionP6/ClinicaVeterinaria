@@ -69,4 +69,8 @@ public class GuardianService {
 
         return guardianRepository.save(guardianToUpdate.get());
     }
+
+    public long countGuardians() {
+        return guardianRepository.count();
+    }
 }

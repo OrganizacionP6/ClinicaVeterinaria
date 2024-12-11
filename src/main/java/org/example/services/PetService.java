@@ -73,5 +73,7 @@ public class PetService {
 
     }
 
-
+    public long countPets() {
+        return petRepository.count();
+    }
 }

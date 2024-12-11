@@ -67,4 +67,8 @@ public class AppointmentService {
 
         return appointmentRepository.save(appointmentToUpdate);
     }
+
+    public long countAppointments() {
+        return appointmentRepository.count();
+    }
 }
