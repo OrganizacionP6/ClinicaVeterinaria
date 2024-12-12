@@ -43,9 +43,10 @@ public class InitFakeData {
             Pet pet1 = savedPets.get(0);
             Pet pet2 = savedPets.get(1);
 
-            List<Appointment> appointmentList = List.of(
+            List<Appointment> appointmentRepository = List.of(
                     new Appointment("11/12/2024", "10:25", "Vaccination", pet1),
                     new Appointment("12/12/2024", "11:00", "Follow-Up", pet2));
+
         };
     }
 }

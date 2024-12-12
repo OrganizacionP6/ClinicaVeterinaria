@@ -17,7 +17,7 @@ import java.util.Optional;
 
 
 @RestController
-@RequestMapping("/api/appointments")
+@RequestMapping("/appointments")
 public class AppointmentController {
    private AppointmentService appointmentService;
 
