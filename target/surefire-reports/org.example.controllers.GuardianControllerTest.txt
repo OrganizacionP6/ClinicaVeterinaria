@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: org.example.controllers.GuardianControllerTest
 -------------------------------------------------------------------------------
-Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 16.30 s -- in org.example.controllers.GuardianControllerTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.15 s -- in org.example.controllers.GuardianControllerTest

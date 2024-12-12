@@ -8,11 +8,8 @@ import java.util.List;
 
 public interface GuardianRepository extends JpaRepository<Guardian, Integer> {
     List<Guardian> findByName(String name);
-<<<<<<< HEAD
 
     Guardian findByEmail(String mail);
-=======
     @Query(value = "SELECT g FROM Guardian g WHERE LOWER(g.name) LIKE LOWER(CONCAT ('%',:name, '%'))")
     List<Guardian> findLikeName(String name);
->>>>>>> f84fd5339054fdcb627436775caf4234fa1e4187
 }

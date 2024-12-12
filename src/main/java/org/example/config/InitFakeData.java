@@ -10,11 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 import java.util.List;
 import java.util.Optional;
 
 @Configuration
+@Profile("!test")
 public class InitFakeData {
 
     @Autowired
@@ -46,6 +48,7 @@ public class InitFakeData {
             List<Appointment> appointmentList = List.of(
                     new Appointment("11/12/2024", "10:25", "Vaccination", pet1),
                     new Appointment("12/12/2024", "11:00", "Follow-Up", pet2));
+            appointmentRepository.saveAll(appointmentList);
         };
     }
 }
