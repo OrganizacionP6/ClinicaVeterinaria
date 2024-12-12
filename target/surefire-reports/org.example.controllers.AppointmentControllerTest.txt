@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: org.example.controllers.AppointmentControllerTest
 -------------------------------------------------------------------------------
-Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.318 s -- in org.example.controllers.AppointmentControllerTest
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.815 s -- in org.example.controllers.AppointmentControllerTest
