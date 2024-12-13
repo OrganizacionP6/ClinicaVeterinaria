@@ -12,18 +12,15 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
     steps:
-      # Paso 1: Clonar el repositorio
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Paso 2: Configurar JDK
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
           java-version: '21'
           distribution: 'temurin'
 
-      # Paso 3: Cachear dependencias Maven
       - name: Cache Maven dependencies
         uses: actions/cache@v3
         with:
@@ -32,11 +29,9 @@ jobs:
           restore-keys: |
             maven-${{ runner.os }}
 
-      # Paso 4: Compilar el proyecto
       - name: Compile with Maven
         run: mvn clean compile
 
-      # Paso 5: Ejecutar tests
       - name: Run Tests
         run: mvn test
 
@@ -44,11 +39,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: build-and-test
     steps:
-      # Paso 1: Clonar el repositorio
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Paso 2: Configurar Docker
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
@@ -59,7 +52,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.MY_CLINIC_PAT }}
 
-      # Paso 3: Construir y publicar las imágenes Docker
       - name: Build and Push Backend Image
         uses: docker/build-push-action@v6
         with:
@@ -76,6 +68,5 @@ jobs:
           push: true
           tags: ghcr.io/organizacionp6/clinica-frontend:latest
 
-      # Paso 4: Validar docker-compose
       - name: Test docker-compose
         run: docker-compose up --build --exit-code-from backend
