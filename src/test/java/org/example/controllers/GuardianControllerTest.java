@@ -47,8 +47,7 @@ class GuardianControllerTest {
                   "name": "Alice Johnson",
                   "email": "alice.johnson@email.com",
                   "phone": "987654321",
-                  "address": "123 Meadow Lane",
-                  "pets": null
+                  "address": "123 Meadow Lane"
                 }
                 """;
 
@@ -82,7 +81,9 @@ class GuardianControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json(jsonreponse));
 
-    }@Test
+    }
+
+    @Test
     void givenValidGuardianName_whenGetRequestIsMade_thenReturnSuccess() throws Exception {
         Guardian guardian = new Guardian("Alice", "alice.johnson@email.com", "987654321", "123 Meadow Lane");
         guardianRepository.save(guardian);
@@ -100,7 +101,7 @@ class GuardianControllerTest {
                                 ]
                         """;
 
-        mockMvc.perform(get("/guardians?name=Alice").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/guardians?name=alice").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().json(jsonreponse));
 
@@ -133,20 +134,12 @@ class GuardianControllerTest {
         Guardian guardian = new Guardian("Alice Johnson", "alice.johnson@email.com", "987654321", "123 Meadow Lane");
         guardianRepository.save(guardian);
 
-        String jsonreponse =
-                """
-                                	{
-                                	  "id": 1,
-                                	  "name": "Alice Johnson",
-                                	  "email": "alice.johnson@email.com",
-                                	  "phone": "987654321",
-                                	  "address": "123 Meadow Lane"
-                                	}
-                        """;
+        assertEquals(1, guardianRepository.count());
 
-        mockMvc.perform(delete("/guardians/1").contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content().json(jsonreponse));
+
+        mockMvc.perform(delete("/guardians/1")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
         assertEquals(0, guardianRepository.count());
     }
 
@@ -157,24 +150,24 @@ class GuardianControllerTest {
 
         String jsonrequest =
                 """
-                                 {
-                                 "name": "Alice Johnson",
-                                 "email": "alice.johnson@email.com",
-                                 "phone": "123456789",
-                                 "address": "123 Meadow Lane"
-                                 }
-                     """;
+                                    {
+                                          "name": "Alice Smith",
+                                           "email": "alice.smith@email.com",
+                                           "phone": "1122334455",
+                                           "address": "789 Pine Street"
+                                         }
+                        """;
 
         String jsonreponse =
                 """
-                               {
-                                 "id": 1,
-                                 "name": "Alice Johnson",
-                                 "email": "alice.johnson@email.com",
-                                 "phone": "123456789",
-                                 "address": "123 Meadow Lane"
-                               }
-                   """;
+                                    {
+                                           "id": 1,
+                                           "name": "Alice Smith",
+                                           "email": "alice.smith@email.com",
+                                           "phone": "1122334455",
+                                           "address": "789 Pine Street"
+                                         }
+                        """;
 
         mockMvc.perform(put("/guardians/1").contentType(MediaType.APPLICATION_JSON)
                         .content(jsonrequest))

@@ -1,5 +1,6 @@
 package org.example.config;
 
+import org.example.dtos.GuardianResponse;
 import org.example.entities.Appointment;
 import org.example.entities.Guardian;
 import org.example.entities.Pet;
