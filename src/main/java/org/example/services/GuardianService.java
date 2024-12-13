@@ -2,6 +2,7 @@
 package org.example.services;
 
 import org.example.dtos.GuardianRequest;
+import org.example.dtos.GuardianResponse;
 import org.example.entities.Guardian;
 import org.example.exeptions.GuardianNotFoundException;
 import org.example.mappers.GuardianMapper;
@@ -25,54 +26,77 @@ public class GuardianService {
         }
     }
 
-    public Guardian createGuardian(GuardianRequest guardianRequest) {
+    public GuardianResponse createGuardian(GuardianRequest guardianRequest) {
         Guardian guardian = GuardianMapper.fromRequest(guardianRequest);
-        return guardianRepository.save(guardian);
-    };
-    public Guardian findById(int id) {
+        Guardian savedGuardian = guardianRepository.save(guardian);
+        return GuardianMapper.toResponse(savedGuardian);
+    }
+
+    public GuardianResponse findGuardianById(int id) {
+
         Optional<Guardian> optionalGuardian = guardianRepository.findById(id);
+
         if (optionalGuardian.isEmpty()){
             throw new GuardianNotFoundException("Guardian not found");
         }
-        return optionalGuardian.get();
+
+        return GuardianMapper.toResponse(optionalGuardian.get());
     }
 
-    public List<Guardian> findAll() {
-        return  guardianRepository.findAll();
+
+    public List<GuardianResponse> getAllGuardians() {
+
+        List<Guardian> guardianList = guardianRepository.findAll();
+       return guardianList.stream()
+               .map(guardian -> GuardianMapper.toResponse(guardian)).toList();
     }
 
-    public List<Guardian> searchByName(String name) {
+    public List<GuardianResponse> searchByName(String name) {
+
         List<Guardian> guardianList = guardianRepository.findLikeName(name);
 
-        if (guardianList.isEmpty()) {
-            throw new GuardianNotFoundException("Guardian Not Found");
-        }
-        return guardianList;
+        return guardianList.stream()
+                .map(guardian -> GuardianMapper.toResponse(guardian)).toList();
     }
 
-    public Guardian deleteById(int id) {
-        Optional<Guardian> guardianToDelete = guardianRepository.findById(id);
-        if(guardianToDelete.get().getPets().isEmpty()){
-            guardianRepository.deleteById(id);
-            return guardianToDelete.get();
+    public void deleteById(int id) {
+        Optional<Guardian> optionalGuardian = guardianRepository.findById(id);
+
+        if (!optionalGuardian.isPresent()) {
+            throw new GuardianNotFoundException("Guardian not found");
         }
-        throw new GuardianNotFoundException("Guardian Have Pets");
+
+        Guardian guardian = optionalGuardian.get();
+        if (!guardian.getPets().isEmpty()) {
+            throw new IllegalStateException("Cannot delete Guardian with pets");
+        }
+
+        guardianRepository.deleteById(id);
     }
 
-    public Guardian updateGuardian(int id, GuardianRequest guardianRequest) {
+    public GuardianResponse updateGuardian(int id, GuardianRequest guardianRequest) {
         Optional<Guardian> guardianToUpdate = guardianRepository.findById(id);
 
-        if(guardianToUpdate.isEmpty()){
+        if (guardianToUpdate.isEmpty()) {
             throw new GuardianNotFoundException("Guardian Not Found");
         }
-        Guardian guardian = GuardianMapper.fromRequest(guardianRequest);
-        guardianToUpdate.get().setName(guardian.getName());
-        guardianToUpdate.get().setPhone(guardian.getPhone());
-        guardianToUpdate.get().setEmail(guardian.getEmail());
-        guardianToUpdate.get().setAddress(guardian.getAddress());
 
-        return guardianRepository.save(guardianToUpdate.get());
+        Guardian guardian = guardianToUpdate.get();
+        guardian.setName(guardianRequest.name());
+        guardian.setPhone(guardianRequest.phone());
+        guardian.setEmail(guardianRequest.email());
+        guardian.setAddress(guardianRequest.address());
+
+        Guardian updatedGuardian = guardianRepository.save(guardian);
+
+        return GuardianMapper.toResponse(updatedGuardian);
     }
+
+    public Guardian findGuardianEntityById(int id) {
+        return guardianRepository.findById(id)
+                .orElseThrow(() -> new GuardianNotFoundException("Guardian not found"));
+    }
+
 
     public long countGuardians() {
         return guardianRepository.count();

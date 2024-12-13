@@ -1,6 +1,5 @@
 package org.example.controllers;
 
-import jakarta.validation.Valid;
 import org.example.dtos.PetRequest;
 import org.example.entities.Pet;
 import org.example.services.PetService;
@@ -21,7 +20,7 @@ public class PetController {
     }
 
     @PostMapping
-    public ResponseEntity<Pet> createPet(@Valid @RequestBody PetRequest petRequest) {
+    public ResponseEntity<Pet> createPet(@RequestBody PetRequest petRequest) {
         Pet pet = petService.createPet(petRequest);
         return new ResponseEntity<>(pet, HttpStatus.CREATED);
     }

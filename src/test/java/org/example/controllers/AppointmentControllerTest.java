@@ -15,9 +15,6 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -99,13 +96,9 @@ class AppointmentControllerTest {
         petRepository.save(pet1);
         petRepository.save(pet2);
 
-        Appointment appointment1 = new Appointment(LocalDate.of(2024, 4, 15),
-                LocalTime.of(15, 30),
-                "Vaccination", pet1);
+        Appointment appointment1 = new Appointment("2024-04-15", "15:30", "Vaccination", pet1);
         appointmentRepository.save(appointment1);
-        Appointment appointment2 = new Appointment(LocalDate.of(2024, 4, 16),
-                LocalTime.of(10,0),
-                 "Annual Checkup", pet2);
+        Appointment appointment2 = new Appointment("2024-04-16", "10:00", "Annual Checkup", pet2);
         appointmentRepository.save(appointment2);
 
 
@@ -169,9 +162,7 @@ class AppointmentControllerTest {
         Pet pet1 = new Pet("Buddy", "dog", "Labrador Retriever", 4, guardian1);
         petRepository.save(pet1);
 
-        Appointment appointment1 = new Appointment(LocalDate.of(2024,4,15),
-                LocalTime.of(15,0),
-                 "Vaccination", pet1);
+        Appointment appointment1 = new Appointment("2024-04-15", "15:30", "Vaccination", pet1);
         appointmentRepository.save(appointment1);
 
 
@@ -212,9 +203,7 @@ class AppointmentControllerTest {
         guardianRepository.save(guardian1);
         Pet pet1 = new Pet("Buddy", "dog", "Labrador Retriever", 4, guardian1);
         petRepository.save(pet1);
-        Appointment appointment1 = new Appointment(LocalDate.of(2024,04,15),
-                LocalTime.of(15,30),
-                 "Vaccination", pet1);
+        Appointment appointment1 = new Appointment("2024-04-15", "15:30", "Vaccination", pet1);
         appointmentRepository.save(appointment1);
 
         assertEquals(1, appointmentRepository.count());
@@ -234,9 +223,7 @@ class AppointmentControllerTest {
         Pet pet1 = new Pet("Buddy", "dog", "Labrador Retriever", 4, guardian1);
         petRepository.save(pet1);
 
-        Appointment appointment1 = new Appointment(LocalDate.of(2024,4,15),
-                LocalTime.of(15,30),
-                 "Vaccination", pet1);
+        Appointment appointment1 = new Appointment("2024-04-15", "15:30", "Vaccination", pet1);
         appointmentRepository.save(appointment1);
 
         String jsonrequest =
