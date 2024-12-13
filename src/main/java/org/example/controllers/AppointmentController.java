@@ -1,5 +1,6 @@
 package org.example.controllers;
 
+import jakarta.validation.Valid;
 import org.example.dtos.AppointmentRequest;
 import org.example.entities.Appointment;
 import org.example.entities.Guardian;
@@ -26,7 +27,7 @@ public class AppointmentController {
     }
 
     @PostMapping
-    public ResponseEntity<Appointment> createAppointment(@RequestBody AppointmentRequest appointmentRequest){
+    public ResponseEntity<Appointment> createAppointment(@Valid @RequestBody AppointmentRequest appointmentRequest){
 
         Appointment savedAppointment = appointmentService.createAppointment(appointmentRequest);
         return new ResponseEntity<>(savedAppointment, HttpStatus.CREATED);
