@@ -13,6 +13,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,8 +49,8 @@ public class InitFakeData {
             Pet pet2 = savedPets.get(1);
 
             List<Appointment> appointmentList = List.of(
-                    new Appointment("11/12/2024", "10:25", "Vaccination", pet1),
-                    new Appointment("12/12/2024", "11:00", "Follow-Up", pet2));
+                    new Appointment(LocalDate.of(2024, 11, 12), LocalTime.of(10, 25), "Vaccination", pet1),
+                    new Appointment(LocalDate.of(2024, 12, 12), LocalTime.of(11,00), "Follow-Up", pet2));
             appointmentRepository.saveAll(appointmentList);
         };
     }

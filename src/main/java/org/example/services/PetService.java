@@ -5,6 +5,7 @@ import org.example.dtos.PetResponse;
 import org.example.entities.Guardian;
 import org.example.entities.Pet;
 
+import org.example.exeptions.GuardianNotFoundException;
 import org.example.exeptions.PetNotFoundException;
 import org.example.mappers.PetMapper;
 import org.example.repositories.PetRepository;
@@ -79,6 +80,10 @@ public class PetService {
         return PetMapper.toResponse(updatedPet);
 
 
+    }
+    public Pet findPetEntityById(int id) {
+        return petRepository.findById(id)
+                .orElseThrow(() -> new PetNotFoundException("Pet not found"));
     }
 
     public long countPets() {

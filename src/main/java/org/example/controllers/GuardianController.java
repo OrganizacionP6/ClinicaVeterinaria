@@ -3,7 +3,6 @@ package org.example.controllers;
 import jakarta.validation.Valid;
 import org.example.dtos.GuardianRequest;
 import org.example.dtos.GuardianResponse;
-import org.example.entities.Guardian;
 import org.example.services.GuardianService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

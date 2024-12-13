@@ -1,19 +1,14 @@
 package org.example.controllers;
 
 import org.example.dtos.AppointmentRequest;
+import org.example.dtos.AppointmentResponse;
 import org.example.entities.Appointment;
-import org.example.entities.Guardian;
-import org.example.entities.Pet;
-import org.example.repositories.AppointmentRepository;
-import org.example.repositories.PetRepository;
 import org.example.services.AppointmentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.parser.Entity;
 import java.util.List;
-import java.util.Optional;
 
 
 @RestController
@@ -26,30 +21,30 @@ public class AppointmentController {
     }
 
     @PostMapping
-    public ResponseEntity<Appointment> createAppointment(@RequestBody AppointmentRequest appointmentRequest){
+    public ResponseEntity<AppointmentResponse> createAppointment(@RequestBody AppointmentRequest appointmentRequest){
 
-        Appointment savedAppointment = appointmentService.createAppointment(appointmentRequest);
-        return new ResponseEntity<>(savedAppointment, HttpStatus.CREATED);
+        AppointmentResponse appointment = appointmentService.createAppointment(appointmentRequest);
+        return new ResponseEntity<>(appointment, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public Appointment getAppointmentById (@PathVariable Long id){
+    public AppointmentResponse getAppointmentById (@PathVariable Long id){
         return appointmentService.findById(id);
     }
 
     @GetMapping
-    public List<Appointment> showAllAppointments() {
-        return this.appointmentService.findAll();
+    public List<AppointmentResponse> showAllAppointments() {
+        return appointmentService.findAllAppointments();
     }
 
     @DeleteMapping("/{id}")
     public void deleteAppointment(@PathVariable Long id) {
-        this.appointmentService.deleteById(id);
+        appointmentService.deleteById(id);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Appointment> updateAppointment(@PathVariable Long id, @RequestBody AppointmentRequest appointmentRequest) {
-        Appointment appointment  = appointmentService.updateAppointment(id, appointmentRequest);
+    public ResponseEntity<AppointmentResponse> updateAppointment(@PathVariable Long id, @RequestBody AppointmentRequest appointmentRequest) {
+        AppointmentResponse appointment  = appointmentService.updateAppointment(id, appointmentRequest);
         return new ResponseEntity<>(appointment, HttpStatus.OK);
     }
 }
