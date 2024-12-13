@@ -19,7 +19,11 @@ public class GuardianService {
         this.guardianRepository = guardianRepository;
     }
 
-
+    private void validateGuardian(String guardian) {
+        if (guardian == null || guardian.trim().isEmpty()) {
+            throw new IllegalArgumentException("Guardian name cannot be empty or contain only spaces.");
+        }
+    }
 
     public Guardian createGuardian(GuardianRequest guardianRequest) {
         Guardian guardian = GuardianMapper.fromRequest(guardianRequest);
