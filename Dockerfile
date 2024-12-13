@@ -1,3 +1,6 @@
+ENTRYPOINT [ "java", "org.springframework.boot.loader.launch.JarLauncher" ]
+ENTRYPOINT [ "java", "-Dspring.profiles.active=postgres", "org.springframework.boot.loader.launch.JarLauncher" ]
+
 # Usar una imagen base de JDK para construir el proyecto
 FROM eclipse-temurin:21-jdk AS build
 
