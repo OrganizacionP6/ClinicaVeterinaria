@@ -14,12 +14,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
 @Configuration
-@Profile("!test")
+@Profile({"!test", "prod"})
 public class InitFakeData {
 
     @Autowired

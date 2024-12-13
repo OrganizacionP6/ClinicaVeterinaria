@@ -1,31 +1,31 @@
 version: "3.8"
 
 services:
-  server:
+  backend:
     build:
-      context: .
+      context: ./backend
     ports:
       - "8080:8080"
     environment:
       SPRING_APPLICATION_NAME: ClinicaVeterinaria
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/clinica_veterinaria
       SPRING_DATASOURCE_DRIVERCLASSNAME: org.postgresql.Driver
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: example_password
+      SPRING_DATASOURCE_USERNAME: sa
+      SPRING_DATASOURCE_PASSWORD: sa
       SPRING_JPA_SHOW_SQL: "true"
       SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL: "true"
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update # Para actualizar la estructura de la base de datos automáticamente
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
     depends_on:
       - db
 
   frontend:
     build:
-      context: ./pet-clinic-front # Cambia esto a la ruta de tu frontend
+      context: ./pet-clinic-front
     ports:
-      - "3000:80" # El puerto 3000 sirve el frontend
+      - "5173:80" # Puerto del frontend
 
   db:
-    image: postgres:15-alpine # Imagen ligera de PostgreSQL
+    image: postgres:15-alpine
     restart: always
     environment:
       POSTGRES_USER: postgres
@@ -34,7 +34,7 @@ services:
     volumes:
       - db-data:/var/lib/postgresql/data
     ports:
-      - "5432:5432" # Puerto para conectarte al servicio de base de datos
+      - "5432:5432"
 
 volumes:
   db-data:

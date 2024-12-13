@@ -3,10 +3,10 @@ name: CI/CD - Spring Boot with Docker
 on:
   push:
     branches:
-      - '*' # Ejecutar en cualquier branch
+      - '**' # Ejecutar en cualquier branch
   pull_request:
     branches:
-      - '*' # Ejecutar en cualquier pull request
+      - '**' # Ejecutar en cualquier pull request
 
 jobs:
   build-and-test:
@@ -31,7 +31,7 @@ jobs:
             ${{ runner.os }}-m2
 
       - name: Build with Maven
-        run: mvn clean compile
+        run: mvn clean install -DskipTests=true
 
       - name: Run Tests
         run: mvn test
@@ -58,13 +58,13 @@ jobs:
         run: |
           docker build -t ghcr.io/organizacionp6/clinica-backend:latest ./backend
 
-      - name: Build Frontend Docker Image
-        run: |
-          docker build -t ghcr.io/organizacionp6/clinica-frontend:latest ./frontend
-
       - name: Push Backend Docker Image
         run: |
           docker push ghcr.io/organizacionp6/clinica-backend:latest
+
+      - name: Build Frontend Docker Image
+        run: |
+          docker build -t ghcr.io/organizacionp6/clinica-frontend:latest ./frontend
 
       - name: Push Frontend Docker Image
         run: |
