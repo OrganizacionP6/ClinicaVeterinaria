@@ -56,7 +56,7 @@ jobs:
 
       - name: Build Backend Docker Image
         run: |
-          docker build -t ghcr.io/organizacionp6/clinica-backend:latest ./backend
+          docker build -t ghcr.io/organizacionp6/clinica-backend:latest .
 
       - name: Push Backend Docker Image
         run: |
@@ -64,7 +64,7 @@ jobs:
 
       - name: Build Frontend Docker Image
         run: |
-          docker build -t ghcr.io/organizacionp6/clinica-frontend:latest ./frontend
+          docker build -t ghcr.io/organizacionp6/clinica-frontend:latest ./pet-clinic-front
 
       - name: Push Frontend Docker Image
         run: |
