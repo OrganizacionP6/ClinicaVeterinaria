@@ -7,20 +7,20 @@ services:
       - "8080:8080"
     environment:
       SPRING_PROFILES_ACTIVE: prod
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/clinica_veterinaria
+      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/clinica_veterinaria
       SPRING_DATASOURCE_USERNAME: sa
       SPRING_DATASOURCE_PASSWORD: sa
     depends_on:
-      - db
+      - localhost
 
   frontend:
     image: ghcr.io/organizacionp6/clinica-frontend:latest
     ports:
-      - "3000:80"
+      - "5173:80"
     depends_on:
       - backend
 
-  db:
+  localhost:
     image: postgres:15
     environment:
       POSTGRES_USER: sa

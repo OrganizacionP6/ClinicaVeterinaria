@@ -255,6 +255,7 @@
     <inspection_tool class="ClassWithoutConstructor" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="ClassWithoutLogger" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="ClassWithoutNoArgConstructor" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="CleanArchitectureInspector" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="CloneCallsConstructors" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="CloneDeclaresCloneNotSupported" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="CloneInNonCloneableClass" enabled="false" level="WARNING" enabled_by_default="false" />
@@ -474,6 +475,14 @@
     <inspection_tool class="DockerJsonFormStringLiterals" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="DocumentWriteJS" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="DollarSignInName" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="DotEnvDuplicateKeyInspection" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="DotEnvExtraBlankLineInspection" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="DotEnvIncorrectDelimiterInspection" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="DotEnvLeadingCharacterInspection" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="DotEnvLowercaseKeyInspection" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="DotEnvSpaceAroundSeparatorInspection" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="DotEnvSpaceInsideNonQuotedInspection" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="DotEnvTrailingWhitespaceInspection" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="DoubleBraceInitialization" enabled="true" level="INFORMATION" enabled_by_default="true" />
     <inspection_tool class="DoubleCheckedLocking" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="ignoreOnVolatileVariables" value="false" />
@@ -712,6 +721,8 @@
     <inspection_tool class="GrUnnecessarySealedModifier" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="GrUnnecessarySemicolon" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="GrUnresolvedAccess" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
+    <inspection_tool class="GradleGroovy" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="GradleKotlin" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="GradleKotlinxCoroutinesDeprecation" enabled="false" level="ERROR" enabled_by_default="false" />
     <inspection_tool class="GraphQLDuplicateArgument" enabled="true" level="ERROR" enabled_by_default="true" />
     <inspection_tool class="GraphQLDuplicateDirective" enabled="true" level="ERROR" enabled_by_default="true" />
@@ -1299,6 +1310,7 @@
     <inspection_tool class="MatchFunctionSignature" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="MathRandomCastToInt" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="MathRoundingWithIntArgument" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="Maven" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="MavenCoroutinesDeprecation" enabled="false" level="ERROR" enabled_by_default="false" />
     <inspection_tool class="MavenDuplicateDependenciesInspection" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="MavenDuplicatePluginInspection" enabled="true" level="WARNING" enabled_by_default="true" />
@@ -1488,6 +1500,7 @@
     <inspection_tool class="NotNullFieldNotInitialized" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="NotifyCalledOnCondition" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="NotifyWithoutCorrespondingWait" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="Npm" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="NpmUsedModulesInstalled" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
     <inspection_tool class="NpmVulnerableApiCode" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="NsColor" enabled="true" level="WARNING" enabled_by_default="true" />
@@ -2833,7 +2846,27 @@
     <inspection_tool class="VueUnrecognizedSlot" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
     <inspection_tool class="VulnerableCodeUsages" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="VulnerableLibrariesGlobal" enabled="true" level="WARNING" enabled_by_default="true" />
-    <inspection_tool class="VulnerableLibrariesLocal" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="VulnerableLibrariesLocal" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="isIgnoringEnabled" value="true" />
+      <option name="ignoredModules">
+        <list>
+          <option value="ClinicaVeterinaria" />
+          <option value="ClinicaVeterinaria" />
+        </list>
+      </option>
+      <option name="ignoredPackages">
+        <list>
+          <option value="org.springframework:spring-webmvc:6.2.0" />
+          <option value="org.yaml:snakeyaml:1.23" />
+        </list>
+      </option>
+      <option name="ignoredReasons">
+        <list>
+          <option value="Not exploitable" />
+          <option value="Not exploitable" />
+        </list>
+      </option>
+    </inspection_tool>
     <inspection_tool class="WSReferenceInspection" enabled="true" level="ERROR" enabled_by_default="true" />
     <inspection_tool class="WadlDomInspection" enabled="true" level="ERROR" enabled_by_default="true" />
     <inspection_tool class="WaitCalledOnCondition" enabled="false" level="WARNING" enabled_by_default="false" />
@@ -2892,6 +2925,7 @@
     <inspection_tool class="YAMLSchemaValidation" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="YAMLUnresolvedAlias" enabled="true" level="ERROR" enabled_by_default="true" />
     <inspection_tool class="YAMLUnusedAnchor" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="Yarn" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="ZeroLengthArrayInitialization" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="com.haulmont.jpb.AssociationFieldHasColumnAnnotation" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="com.haulmont.jpb.AssociationNotMarkedInspection" enabled="true" level="WARNING" enabled_by_default="true" />
@@ -2938,6 +2972,7 @@
         </value>
       </option>
     </inspection_tool>
+    <inspection_tool class="jol" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="unused" enabled="true" level="WARNING" enabled_by_default="true" checkParameterExcludingHierarchy="false">
       <option name="LOCAL_VARIABLE" value="true" />
       <option name="FIELD" value="true" />
