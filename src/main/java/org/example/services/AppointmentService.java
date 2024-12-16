@@ -4,6 +4,7 @@ import org.example.dtos.AppointmentRequest;
 import org.example.dtos.AppointmentResponse;
 import org.example.entities.Appointment;
 import org.example.entities.Pet;
+
 import org.example.exeptions.AppointmentNotFoundException;
 import org.example.mappers.AppointmentMapper;
 import org.example.repositories.AppointmentRepository;
