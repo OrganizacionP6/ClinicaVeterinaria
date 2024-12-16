@@ -80,6 +80,18 @@ public class AppointmentService {
         return AppointmentMapper.toResponse(appointment);
     }
 
+    public List<AppointmentResponse> getNextAppointmentsByPetId(int petId) {
+        List<Appointment> appointments = appointmentRepository.findNextAppointmentsByPetId(petId);
+
+        return appointments.stream().map(appointment -> AppointmentMapper.toResponse(appointment)).toList();
+    }
+
+    public List<AppointmentResponse> getPastAppointmentsByPetId(int petId) {
+        List<Appointment> appointments = appointmentRepository.findPastAppointmentsByPetId(petId);
+
+        return appointments.stream().map(appointment -> AppointmentMapper.toResponse(appointment)).toList();
+    }
+
     public long countAppointments() {
         return appointmentRepository.count();
     }

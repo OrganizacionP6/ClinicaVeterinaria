@@ -53,4 +53,15 @@ public class AppointmentController {
         AppointmentResponse appointment  = appointmentService.updateAppointment(id, appointmentRequest);
         return new ResponseEntity<>(appointment, HttpStatus.OK);
     }
+
+    @GetMapping("/next")
+    public List<AppointmentResponse> getNextAppointments(@RequestParam int petId) {
+        return appointmentService.getNextAppointmentsByPetId(petId);
+    }
+
+    @GetMapping("/past")
+    public List<AppointmentResponse> getPastAppointments(@RequestParam int petId) {
+        return appointmentService.getPastAppointmentsByPetId(petId);
+    }
+
 }
