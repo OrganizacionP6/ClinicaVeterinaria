@@ -1,6 +1,7 @@
 # Sistema de Gestión para Clínica Veterinaria
 
-[CI](https://github.com/OrganizacionP6/ClinicaVeterinaria/actions/workflows/ci.yml/badge.svg)
+
+![CI](https://github.com/OrganizacionP6/ClinicaVeterinaria/actions/workflows/ci.yml/badge.svg)
 
 ### 🏁 **Contexto General**
 
