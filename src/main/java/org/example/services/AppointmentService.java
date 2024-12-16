@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 @Service
@@ -28,6 +29,12 @@ public class AppointmentService {
     public AppointmentResponse createAppointment(AppointmentRequest appointmentRequest) {
         Pet pet = petRepository.findPetEntityById(appointmentRequest.petId());
 
+        LocalDateTime appointmentDateTime = LocalDateTime.of(appointmentRequest.date(), appointmentRequest.time());
+        LocalDateTime now = LocalDateTime.now();
+
+        if (appointmentDateTime.isBefore(now)) {
+            throw new IllegalArgumentException("The appointment date and time must be in the future.");
+        }
         Appointment appointment = AppointmentMapper.fromRequest(appointmentRequest, pet);
         Appointment savedAppointment = appointmentRepository.save(appointment);
         return AppointmentMapper.toResponse(savedAppointment);
