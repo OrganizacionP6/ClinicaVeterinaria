@@ -15,11 +15,12 @@ El sistema ha sido desarrollado como una **API REST** utilizando **Java Spring B
 
 ## 👀 **Objetivo del Sprint**
 
-En este sprint, hemos desarrollado el módulo Appointments.
+En este sprint, nos enfocamos en los siguientes objetivos principales:
 
-**Gestor de Citas (Appointments):**
-    - Registro, búsqueda, listado, actualización y eliminación de citas.
-    - Asociación de citas con pacientes registrados en el sistema.
+- **Desarrollo del módulo Appointments**: Implementamos funcionalidades clave para la gestión de citas.
+- **Integración del BackEnd con el FrontEnd**: Asociamos las APIs del BackEnd con los componentes del FrontEnd, asegurando una comunicación fluida y funcional entre ambas partes de la aplicación.
+- **Configuración de una pipeline de CI/CD**: Creamos una pipeline de integración y despliegue continuo utilizando GitHub Actions, automatizando las pruebas, el build y el despliegue del proyecto.
+
 
 Con esto, Margarita podrá gestionar toda la información de sus pacientes, tutores y el historial de citas en su clínica.
 
@@ -35,6 +36,9 @@ El sistema ha sido desarrollado utilizando las siguientes tecnologías:
 - **Maven**: Herramienta de gestión de dependencias y construcción del proyecto.
 - **Postman**: Herramienta para pruebas de la API REST.
 - **Git**: Sistema de control de versiones para la colaboración y gestión del código fuente.
+- **Github Actions**: Automatiza, personaliza y ejecuta los flujos de trabajo de desarrollo de software directamente del repositorio.
+- **React**: biblioteca principal para la construcción de la interfaz de usuario.
+- **Node.js**: Configuración del entorno de desarrollo FrontEnd.
 
 ---
 
@@ -101,6 +105,7 @@ El sistema ha sido desarrollado utilizando las siguientes tecnologías:
 3. **Listado de Citas:**
     - Listar todas las citas registradas en el sistema.
     - Mostrar información básica como fecha, hora, motivo y paciente asociado.
+    - Listar las citas registradas según la ID del paciente.
 4. **Actualización de Citas:**
     - Permitir modificar los datos de una cita registrada.
 5. **Eliminación de Citas:**
