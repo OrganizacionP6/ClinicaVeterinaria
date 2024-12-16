@@ -8,6 +8,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 @Entity
 @Getter
 @Setter
@@ -20,9 +23,9 @@ public class Appointment {
     @Column(name = "id_appointment", nullable = false)
     private Long id;
     @Column(name = "date")
-    private String date;
+    private LocalDate date;
     @Column(name = "time")
-    private String time;
+    private LocalTime time;
 
     @Column(name = "reason")
     private String reason;
@@ -34,7 +37,7 @@ public class Appointment {
 
 
 
-    public Appointment(String date, String time, String reason, Pet pet) {
+    public Appointment(LocalDate date, LocalTime time, String reason, Pet pet) {
 
         this.date = date;
         this.time = time;

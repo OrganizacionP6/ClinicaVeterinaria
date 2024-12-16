@@ -1,5 +1,7 @@
 # Sistema de Gestión para Clínica Veterinaria
 
+[CI](https://github.com/OrganizacionP6/ClinicaVeterinaria/actions/workflows/ci.yml/badge.svg)
+
 ### 🏁 **Contexto General**
 
 Margarita está a punto de abrir su clínica veterinaria y necesita un sistema para gestionar los datos de sus pacientes, tutores y citas. Este sistema será esencial para mantener organizada toda la información de los animales atendidos, sus responsables y el historial de citas.

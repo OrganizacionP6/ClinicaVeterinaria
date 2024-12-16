@@ -1,6 +1,7 @@
 package org.example.services;
 
 import org.example.dtos.PetRequest;
+import org.example.dtos.PetResponse;
 import org.example.entities.Guardian;
 import org.example.entities.Pet;
 
@@ -23,24 +24,30 @@ public class PetService {
         this.guardianRepository = guardianRepository;
     }
 
-    public Pet createPet(PetRequest petRequest) {
+    public PetResponse createPet(PetRequest petRequest) {
 
-        Guardian guardian = guardianRepository.findById(petRequest.guardianId());
+        Guardian guardian = guardianRepository.findGuardianEntityById(petRequest.guardianId());
+
         Pet pet = PetMapper.fromRequest(petRequest, guardian);
-        return petRepository.save(pet);
+        Pet savedPet = petRepository.save(pet);
+
+        return PetMapper.toResponse(savedPet);
 
     }
 
-    public List<Pet> findAll() {
-        return petRepository.findAll();
+    public List<PetResponse> getAllPets() {
+        List<Pet> petList = petRepository.findAll();
+        return petList.stream().map(pet -> PetMapper.toResponse(pet)).toList();
     }
-    public Pet findByIdPets(int id) {
+
+    public PetResponse findByIdPets(int id) {
         Optional<Pet> optionalPet = petRepository.findById(id);
+
         if (optionalPet.isEmpty()) {
             throw new PetNotFoundException("Pet Not Found");
         }
 
-        return optionalPet.get();
+        return PetMapper.toResponse(optionalPet.get());
     }
 
 
@@ -52,25 +59,30 @@ public class PetService {
         petRepository.deleteById(id);
     }
 
-    public Pet updatePetById(int id, PetRequest petRequest) {
+    public PetResponse updatePetById(int id, PetRequest petRequest) {
         Pet petToUpdate = petRepository.findById(id)
                 .orElseThrow(() -> new PetNotFoundException("Pet not found"));
 
 
         Guardian guardian = petToUpdate.getGuardian();
         if (petRequest.guardianId() != guardian.getId()) {
-            guardian = guardianRepository.findById(petRequest.guardianId());
+            guardian = guardianRepository.findGuardianEntityById(petRequest.guardianId());
         }
-
         petToUpdate.setName(petRequest.name());
         petToUpdate.setSpecie(petRequest.specie());
         petToUpdate.setBreed(petRequest.breed());
         petToUpdate.setAge(petRequest.age());
         petToUpdate.setGuardian(guardian);
 
-        return petRepository.save(petToUpdate);
+        Pet updatedPet = petRepository.save(petToUpdate);
+
+        return PetMapper.toResponse(updatedPet);
 
 
+    }
+    public Pet findPetEntityById(int id) {
+        return petRepository.findById(id)
+                .orElseThrow(() -> new PetNotFoundException("Pet not found"));
     }
 
     public long countPets() {

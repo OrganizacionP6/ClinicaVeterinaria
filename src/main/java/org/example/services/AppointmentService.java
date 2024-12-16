@@ -1,14 +1,13 @@
 package org.example.services;
 
 import org.example.dtos.AppointmentRequest;
+import org.example.dtos.AppointmentResponse;
 import org.example.entities.Appointment;
 import org.example.entities.Pet;
 import org.example.exeptions.AppointmentNotFoundException;
 import org.example.mappers.AppointmentMapper;
 import org.example.repositories.AppointmentRepository;
 import org.example.repositories.PetRepository;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,22 +24,25 @@ public class AppointmentService {
         this.petRepository = petRepository;
     }
 
-    public Appointment createAppointment(AppointmentRequest appointmentRequest) {
-        Optional<Pet> pet = petRepository.findById(appointmentRequest.petId());
-        Appointment appointment = AppointmentMapper.fromRequest(appointmentRequest, pet.get());
-        return appointmentRepository.save(appointment);
+    public AppointmentResponse createAppointment(AppointmentRequest appointmentRequest) {
+        Pet pet = petRepository.findPetEntityById(appointmentRequest.petId());
+
+        Appointment appointment = AppointmentMapper.fromRequest(appointmentRequest, pet);
+        Appointment savedAppointment = appointmentRepository.save(appointment);
+        return AppointmentMapper.toResponse(savedAppointment);
     }
 
-    public Appointment findById(Long id) {
+    public AppointmentResponse findById(Long id) {
         Optional<Appointment> optionalAppointment = appointmentRepository.findById(id);
         if (optionalAppointment.isEmpty()){
             throw new AppointmentNotFoundException("Appointment not found");
         }
-        return optionalAppointment.get();
+        return AppointmentMapper.toResponse(optionalAppointment.get());
     }
 
-    public List<Appointment> findAll() {
-        return appointmentRepository.findAll();
+    public List<AppointmentResponse> findAllAppointments() {
+        List<Appointment> appointmentList = appointmentRepository.findAll();
+        return appointmentList.stream().map(appointment -> AppointmentMapper.toResponse(appointment)).toList();
     }
 
     public void deleteById(Long id) {
@@ -51,21 +53,23 @@ public class AppointmentService {
         appointmentRepository.deleteById(id);
     }
 
-    public Appointment updateAppointment(@PathVariable Long id, @RequestBody AppointmentRequest appointmentRequest) {
+    public AppointmentResponse updateAppointment(@PathVariable Long id, @RequestBody AppointmentRequest appointmentRequest) {
         Appointment appointmentToUpdate = appointmentRepository.findById(id)
                 .orElseThrow(()-> new AppointmentNotFoundException("Appointment not found"));
-        Optional<Pet> pet = Optional.ofNullable(appointmentToUpdate.getPet());
-        if (appointmentRequest.petId()!= pet.get().getId()){
-            pet = petRepository.findById(appointmentRequest.petId());
+
+        Pet pet = appointmentToUpdate.getPet();
+        if (appointmentRequest.petId() != pet.getId()){
+            pet = petRepository.findPetEntityById(appointmentRequest.petId());
         }
 
         appointmentToUpdate.setDate(appointmentRequest.date());
         appointmentToUpdate.setTime(appointmentRequest.time());
         appointmentToUpdate.setReason(appointmentRequest.reason());
-        appointmentToUpdate.setPet(pet.get());
-        appointmentRepository.save(appointmentToUpdate);
+        appointmentToUpdate.setPet(pet);
 
-        return appointmentRepository.save(appointmentToUpdate);
+        Appointment appointment = appointmentRepository.save(appointmentToUpdate);
+
+        return AppointmentMapper.toResponse(appointment);
     }
 
     public long countAppointments() {
