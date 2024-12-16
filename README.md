@@ -12,6 +12,8 @@ En este sprint, nos enfocamos en desarrollar tres módulos principales: el **ges
 El sistema ha sido desarrollado como una **API REST** utilizando **Java Spring Boot**, y los datos se almacenan en una base de datos H2.
 
 ---
+![gifdeveterinaria.gif](gifdeveterinaria.gif)
+---
 
 ## 👀 **Objetivo del Sprint**
 
