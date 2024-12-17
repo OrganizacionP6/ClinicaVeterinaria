@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
+@Profile("!test")
 public class InitFakeData {
     
     @Autowired
@@ -46,7 +48,7 @@ public class InitFakeData {
             List<Guardian> guardianList = new ArrayList<>();
             
             // Generar y guardar 3 guardianes con datos ficticios
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < 1; i++) {
                 Guardian guardian = new Guardian();
                 guardian.setName(faker.name().fullName());
                 guardian.setEmail(faker.internet().emailAddress());
