@@ -11,68 +11,92 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.IntStream;
 
 @Configuration
-@Profile({"!test", "prod"})
 public class InitFakeData {
     
     @Autowired
-    GuardianRepository guardianRepository;
+    private GuardianRepository guardianRepository;
+    
     @Autowired
-    PetRepository petRepository;
+    private PetRepository petRepository;
+    
     @Autowired
-    AppointmentRepository appointmentRepository;
+    private AppointmentRepository appointmentRepository;
     
     @Bean
-    public CommandLineRunner initData() {
+    @Transactional
+    public CommandLineRunner initialData() {
         return args -> {
+            // Limpiar las tablas antes de insertar nuevos datos
+            appointmentRepository.deleteAll();
+            petRepository.deleteAll();
+            guardianRepository.deleteAll();
+            
+            // Instancia de Faker para generar datos ficticios
             Faker faker = new Faker();
             
-            // Crear y guardar Guardianes
-            List<Guardian> guardianList = IntStream.range(0, 2)
-                  .mapToObj(i -> new Guardian(
-                        faker.name().firstName(),
-                        faker.phoneNumber().cellPhone(),
-                        faker.internet().emailAddress(),
-                        faker.address().fullAddress()))
-                  .toList();
+            // Lista para almacenar los guardianes generados
+            List<Guardian> guardianList = new ArrayList<>();
+            
+            // Generar y guardar 3 guardianes con datos ficticios
+            for (int i = 0; i < 3; i++) {
+                Guardian guardian = new Guardian();
+                guardian.setName(faker.name().fullName());
+                guardian.setEmail(faker.internet().emailAddress());
+                guardian.setPhone(faker.phoneNumber().cellPhone());
+                guardian.setAddress(faker.address().fullAddress());
+                
+                // Agregar el guardián a la lista
+                guardianList.add(guardian);
+            }
+            
+            // Guardar todos los guardianes en el repositorio
             List<Guardian> savedGuardians = guardianRepository.saveAll(guardianList);
             
-            // Crear y guardar Mascotas
-            List<Pet> petList = IntStream.range(0, 2)
-                  .mapToObj(i -> new Pet(
-                        faker.animal().name(),
-                        faker.options().option("gato", "perro", "conejo"),
-                        "",
-                        faker.number().numberBetween(1, 10),
-                        savedGuardians.get(i)))
-                  .toList();
+            // Lista para almacenar las mascotas generadas
+            List<Pet> petList = new ArrayList<>();
+            
+            // Generar y guardar 2 mascotas por cada guardián
+            for (Guardian guardian : savedGuardians) {
+                for (int j = 0; j < 1; j++) {
+                    Pet pet = new Pet();
+                    pet.setName(faker.animal().name());
+                    pet.setSpecie(faker.options().option("Gato", "Perro", "Conejo"));
+                    pet.setAge(faker.number().numberBetween(1, 10));
+                    pet.setGuardian(guardian);
+                    
+                    // Agregar la mascota a la lista
+                    petList.add(pet);
+                }
+            }
+            
+            // Guardar todas las mascotas en el repositorio
             List<Pet> savedPets = petRepository.saveAll(petList);
             
-            // Crear y guardar Citas
-            List<Appointment> appointmentList = IntStream.range(0, 2)
-                  .mapToObj(i -> {
-                      LocalDate futureDate = LocalDate.now().plusDays(faker.number().numberBetween(1, 365));
-                      LocalTime appointmentTime = LocalTime.parse(faker.options().option("10:25", "11:00", "14:30"));
-                      
-                      Appointment appointment = new Appointment();
-                      appointment.setDate(futureDate);
-                      appointment.setTime(appointmentTime);
-                      appointment.setReason(faker.medical().diseaseName());
-                      appointment.setPet(savedPets.get(i));
-                      return appointment;
-                  })
-                  .toList();
+            // Lista para almacenar las citas generadas
+            List<Appointment> appointmentList = new ArrayList<>();
             
+            // Generar y guardar 1 cita por cada mascota
+            for (Pet pet : savedPets) {
+                Appointment appointment = new Appointment();
+                appointment.setDate(LocalDate.now().plusDays(faker.number().numberBetween(1, 365)));
+                appointment.setTime(LocalTime.of(faker.number().numberBetween(8, 17), faker.options().option(0, 15, 30, 45)));
+                appointment.setReason(faker.medical().diseaseName());
+                appointment.setPet(pet);
+                
+                // Agregar la cita a la lista
+                appointmentList.add(appointment);
+            }
+            
+            // Guardar todas las citas en el repositorio
             appointmentRepository.saveAll(appointmentList);
-            
         };
-        
     }
 }
